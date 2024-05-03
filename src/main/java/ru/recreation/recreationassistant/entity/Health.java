@@ -1,11 +1,13 @@
 package ru.recreation.recreationassistant.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "w_health")
+@AllArgsConstructor
 public class Health {
 
     @Id
