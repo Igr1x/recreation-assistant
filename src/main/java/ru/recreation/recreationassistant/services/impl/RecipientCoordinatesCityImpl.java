@@ -11,7 +11,6 @@ import ru.recreation.recreationassistant.models.City;
 import ru.recreation.recreationassistant.services.RecipientCoordinatesCity;
 
 @Service
-@PropertySource("config.properties")
 @Slf4j
 public class RecipientCoordinatesCityImpl implements RecipientCoordinatesCity {
 
