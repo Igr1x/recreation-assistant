@@ -21,7 +21,6 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@PropertySource("config.properties")
 public class RecipeRecommendationsServiceImpl implements RecipeRecommendationsService {
 
     private static final String URL = "https://api.edamam.com/api/recipes/v2";
