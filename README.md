@@ -19,7 +19,8 @@
   4. Получать рецепты коктейлей по определенным параметрам (алкогольный или нет, основные ингридиенты и тд.)
 
 ## Архитектура
-![Диаграмма системного контекста](https://github.com/StretenskiyDanila/recreation-assistant/assets/97761847/a7738157-3903-476d-aef4-081f3bbb8557)
+![image](https://github.com/StretenskiyDanila/recreation-assistant/assets/97761847/57b4da64-ef74-4bd6-ade4-3d85f480e2a0)
+
 
 
 ## Кодирование и отладка
