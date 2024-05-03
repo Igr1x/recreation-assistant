@@ -30,8 +30,10 @@
 В проекте практически нет отдельных функций для unit-тестов, поэтому были написаны только интеграционные.
 Для отслеживания покрытия был использован Jacoco Plugin.
 Так как большую часть проекта состовляются модели (для парсинга JSON), сущности таблиц и перечисления для реализации InlineKeyboard в боте, тестами были покрыты на 70% только сервисы.
-![total.png](..%2FDesktop%2Ftotal.png)
-![services.png](..%2FDesktop%2Fservices.png)
+![total](https://github.com/StretenskiyDanila/recreation-assistant/assets/121712099/a91063d0-5143-4b92-9ad3-0f3e63d8b734)
+![services](https://github.com/StretenskiyDanila/recreation-assistant/assets/121712099/cffd4b75-76c6-491b-a659-980ec7d0d69e)
+
+
 
 ## Сборка
 Для сборки проекта используется _maven_. Запуская команду `mvn package` в директории проекта, получаем сборку+все юнит/интеграционные тесты. На выходе получаем `.jar` файл, который можно запустить при помощи `java <name>.jar`
