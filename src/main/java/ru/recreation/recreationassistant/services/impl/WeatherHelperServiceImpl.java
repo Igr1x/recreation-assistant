@@ -1,6 +1,8 @@
 package ru.recreation.recreationassistant.services.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -8,9 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
 import ru.recreation.recreationassistant.models.City;
 import ru.recreation.recreationassistant.models.FactWeather;
-import ru.recreation.recreationassistant.models.Recommendation;
 import ru.recreation.recreationassistant.models.WeatherInCity;
 import ru.recreation.recreationassistant.services.WeatherHelperService;
+
+import java.io.FileReader;
+import java.io.IOException;
 
 @Service
 @Slf4j
@@ -40,21 +44,28 @@ public class WeatherHelperServiceImpl implements WeatherHelperService {
         ResponseEntity<String> response = restTemplateWork.getResponse(URL, map, request);
         log.info("Parsing weather data from json ...");
         WeatherInCity weather = restTemplateWork.getJacksonResult(response, WeatherInCity.class);
-        return getStringRecommendation(weather.fact);
+        return getStringRecommendation(weather.getFact());
     }
 
     private String getStringRecommendation(FactWeather weather) {
         log.info("WeatherHelper getStringRecommendation method start");
         StringBuilder result = new StringBuilder();
         log.info("Adding recommendations");
-        if (weather.feels_like > 17) {
-            result.append(Recommendation.WARM_INFO).append(Recommendation.TEMP_FEELS).append(weather.feels_like).append("°C. ");
-        } else {
-            result.append(Recommendation.COLD_WARNING).append(Recommendation.TEMP_FEELS).append(weather.feels_like).append(" °C. ");
-        }
-        if (weather.condition.equals("rain")) {
-            result.append(Recommendation.RAIN_WARNING);
+        String jsonPath = "src/main/resources/Recommendation.json";
+        try (FileReader reader = new FileReader(jsonPath)) {
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+            if (weather.getFeelsLike() > 17) {
+                result.append(jsonObject.get("WARM_INFO").getAsString()).append(jsonObject.get("TEMP_FEELS").getAsString()).append(weather.getFeelsLike()).append("°C. ");
+            } else {
+                result.append(jsonObject.get("COLD_WARNING").getAsString()).append(jsonObject.get("TEMP_FEELS").getAsString()).append(weather.getFeelsLike()).append(" °C. ");
+            }
+            if (weather.getCondition().equals("rain")) {
+                result.append(jsonObject.get("RAIN_WARNING").getAsString());
+            }
+        } catch (IOException e) {
+            log.error("Error during find json");
         }
         return result.toString();
     }
+
 }
